@@ -18,7 +18,7 @@ build: links
 	cd packer && packer build -var-file="variables.json" spark_base.json && sleep 20
 
 destroy: links
-	cd terraform/aws/testing && terraform get && terraform destroy -force $(KEYS) -var-file="terraform.tfvars"
+	cd terraform/aws/testing && terraform get && terraform destroy $(KEYS) -var-file="terraform.tfvars"
 
 plan: links
 	cd terraform/aws/testing && terraform get && terraform plan $(KEYS) -var-file="terraform.tfvars"
