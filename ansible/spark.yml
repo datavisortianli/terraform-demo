@@ -5,11 +5,11 @@
   become: true
   roles:
     - common
-    - { role: spark, is_master: True }
+    - spark-master
 
 - name: Configure Spark Workers
   hosts: tag_role_spark_worker
   become: true
   roles:
     - common
-    - { role: spark, is_master: False }
+    - spark-worker

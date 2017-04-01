@@ -11,8 +11,9 @@ data "template_file" "cloud_init_spark" {
 
   vars {
     HOSTNAME = "${var.role}"
+    ROLE = "${var.role}"
     REGION_DNS = "${var.dns_region_name}"
-    ENVIRONMENT = "${var.environment}"
+    ENV = "${var.environment}"
     MASTER_IP = "${var.master_ip}"
   }
 }

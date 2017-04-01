@@ -18,6 +18,13 @@ no_ssh_fingerprints: true
 # Don't override our apt repository list on first boot
 apt_preserve_sources_list: true
 
+writes_files:
+ - path: /etc/ansible/hosts
+   owner: ubuntu:ubuntu
+   permissions: '0444'
+   content: |
+     localhost ansible_connection=local
+
 runcmd:
  - "while [ ! -e '/dev/xvdd' ]; do echo 'waiting for device: xvdd'; sleep 1; done"
  - yes | sudo apt-get update -y -qq
@@ -26,3 +33,4 @@ runcmd:
  - sudo mkdir /vol
  - sudo mount /dev/xvdd /vol
  - echo "/dev/xvdd       /vol    xfs    defaults,noatime       0       0" >> /etc/fstab
+ - /usr/local/bin/ansible-pull -o -C auto-provision -d /opt/ansible -U https://github.com/datavisortianli/terraform-demo.git --e "env=${ENV} role=${ROLE}">> /var/log/ansible-pull.log 2>&1
