@@ -19,3 +19,10 @@ sudo apt-get install unzip -y -qq
 
 echo "Install Git..."
 sudo apt-get install git -y -qq
+
+echo "Install libssl"
+sudo apt-get install libssl-dev -y -qq
+
+echo "Install ansible..."
+sudo apt-get install ansible -y -qq
+pip install ansible -q

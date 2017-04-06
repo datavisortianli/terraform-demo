@@ -14,9 +14,9 @@
       "source_ami": "ami-a58d0dc5",
       "instance_type": "t2.small",
       "ssh_username": "ubuntu",
-      "ami_name": "{{user `role`}}.{{user `environment`}}",
+      "ami_name": "{{user `role`}}.{{user `environment`}}_ansible",
       "tags": {
-        "Name": "{{user `environment`}}-{{user `role`}}",
+        "Name": "{{user `environment`}}-{{user `role`}}-ansible",
         "role": "{{user `ts_role`}}",
         "purpose": "pre-baked AMI for role {{user `role`}}",
         "environment": "{{user `environment`}}"
