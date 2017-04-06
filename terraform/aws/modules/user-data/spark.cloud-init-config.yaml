@@ -33,4 +33,4 @@ runcmd:
  - sudo mkdir /vol
  - sudo mount /dev/xvdd /vol
  - echo "/dev/xvdd       /vol    xfs    defaults,noatime       0       0" >> /etc/fstab
- - sudo ansible-pull -o -C auto-provision -d /opt/ansible -U https://github.com/datavisortianli/terraform-demo.git --e "env=${ENV} role=${ROLE}">> /var/log/ansible-pull.log 2>&1
+ - sudo ansible-pull -o -C master -d /opt/ansible -U https://github.com/datavisortianli/ansible-demo.git --e \"env=${ENV} role=${ROLE}\" local.yml>> /var/log/ansible-pull.log 2>&1
