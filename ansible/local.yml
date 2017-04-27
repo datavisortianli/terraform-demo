@@ -1,6 +1,0 @@
-- name: local provision with role
-  hosts: localhost
-  vars_files:
-    - "vars/{{ env }}.yml"
-  roles:
-    - "{{ role }}"

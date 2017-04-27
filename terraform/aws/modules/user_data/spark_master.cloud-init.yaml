@@ -1,0 +1,32 @@
+#cloud-config
+preserve_hostname: true
+manage_etc_hosts: false
+
+bootcmd:
+ - "echo ${HOSTNAME}-$INSTANCE_ID.${REGION_DNS} > /etc/hostname; hostname -F /etc/hostname"
+ - "sed -i -e '/^127.0.0.1/d' /etc/hosts; echo 127.0.0.1 ${HOSTNAME}-$INSTANCE_ID.${REGION_DNS} ${HOSTNAME}-$INSTANCE_ID localhost >> /etc/hosts"
+
+
+# set the locale
+locale: en_GB.UTF-8
+
+# timezone: set the timezone for this instance (ALWAYS use UTC!)
+timezone: UTC
+
+# Don't print the new ssh keys on the console
+no_ssh_fingerprints: true
+
+writes_files:
+ - path: /etc/ansible/hosts
+   owner: root:root
+   permissions: '0444'
+   content: |
+     localhost ansible_connection=local
+
+runcmd:
+ - "while [ ! -e '/dev/xvdd' ]; do echo 'waiting for device: xvdd'; sleep 1; done"
+ - sudo yum instal xfsprogs
+ - sudo mkfs -t xfs /dev/xvdd
+ - sudo mount /dev/xvdd /mnt
+ - echo "/dev/xvdd       /mnt    xfs    defaults,noatime       0       0" >> /etc/fstab
+# - sudo ansible-pull -o -C master -d /opt/ansible -U https://github.com/datavisortianli/ansible-demo.git --e \"role=${ROLE}\" local.yml>> /var/log/ansible-pull.log 2>&1

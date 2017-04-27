@@ -18,7 +18,7 @@ module "spark_security_groups" {
 
 
 module "spark-master" {
-  source = "../modules/spark"
+  source = "../modules/spark_master"
 
   role = "spark-master"
   owner = "${var.owner}"
@@ -26,7 +26,7 @@ module "spark-master" {
   dns_region_name = "${var.dns_region_name}"
   instance_count = 1
   instance_type = "${var.instance_type}"
-  instance_ami = "${var.instance_ami}"
+  instance_ami = "${var.spark_master_ami}"
   instance_key_name = "${var.instance_key_name}"
   availability_zones = "${var.availability_zones}"
   vpc_security_groups = "${module.spark_security_groups.spark_master_sg_id}"
@@ -36,7 +36,7 @@ module "spark-master" {
 }
 
 module "spark-worker" {
-  source = "../modules/spark"
+  source = "../modules/spark_worker_spot"
 
   role = "spark-worker"
   owner = "${var.owner}"
@@ -44,7 +44,7 @@ module "spark-worker" {
   dns_region_name = "${var.dns_region_name}"
   instance_count = "${var.workers_count}"
   instance_type = "${var.instance_type}"
-  instance_ami = "${var.instance_ami}"
+  instance_ami = "${var.spark_worker_ami}"
   instance_key_name = "${var.instance_key_name}"
   availability_zones = "${var.availability_zones}"
   vpc_security_groups = "${module.spark_security_groups.spark_worker_sg_id}"

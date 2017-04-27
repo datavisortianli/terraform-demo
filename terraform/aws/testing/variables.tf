@@ -9,7 +9,9 @@ variable "environment" {}
 # Owner who launched the cluster
 variable "owner" {}
 
-variable "instance_ami" {}
+variable "spark_master_ami" {}
+
+variable "spark_worker_ami" {}
 
 # The name of your ssh key pair in aws
 variable "instance_key_name" {}
